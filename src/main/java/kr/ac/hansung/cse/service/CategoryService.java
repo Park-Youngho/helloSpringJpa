@@ -1,17 +1,14 @@
 package kr.ac.hansung.cse.service;
 
-import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import org.springframework.transaction.annotation.Transactional;
 import kr.ac.hansung.cse.exception.DuplicateCategoryException;
 import kr.ac.hansung.cse.model.Category;
 import kr.ac.hansung.cse.repository.CategoryRepository;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service @Transactional(readOnly = true)
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -32,5 +29,13 @@ public class CategoryService {
                     throw new DuplicateCategoryException(name);
                 });
         return categoryRepository.save(new Category(name));
+    }
+
+    public void deleteCategory(Long id) {
+        long count = categoryRepository.countProductsByCategoryById(id);
+        if(count>0){
+            throw new IllegalStateException("상품" + count + "개가 연결되어 있어 삭제할 수 없습니다.");
+        }
+        categoryRepository.delete(id);
     }
 }
