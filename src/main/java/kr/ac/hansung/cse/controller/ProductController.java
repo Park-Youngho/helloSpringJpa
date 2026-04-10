@@ -32,6 +32,7 @@ import java.util.List;
  * POST /products/{id}/edit  → 상품 수정 처리
  * POST /products/{id}/delete → 상품 삭제 처리
  */
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
