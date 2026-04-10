@@ -1,5 +1,9 @@
 package kr.ac.hansung.cse.service;
 
+import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import kr.ac.hansung.cse.exception.DuplicateCategoryException;
 import kr.ac.hansung.cse.model.Category;
 import kr.ac.hansung.cse.repository.CategoryRepository;
 import org.jspecify.annotations.Nullable;
@@ -20,4 +24,13 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    @Transactional // readonly 오버라이드 -> 쓰기 허용
+    public Category createCategory(String name) {
+        // 중복검사: 이름이 이미 있으면 예외 발생
+        categoryRepository.findByName(name)
+                .ifPresent(c -> {
+                    throw new DuplicateCategoryException(name);
+                });
+        return categoryRepository.save(new Category(name));
+    }
 }
