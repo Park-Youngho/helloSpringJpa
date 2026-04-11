@@ -134,7 +134,7 @@ public class ProductRepository {
 
     public List<Product> findByNameContaining(String keyword) {
         return entityManager.createQuery(
-                "SELECT p FROM Product p WHERE p.name LIKE :keyword",
+                "SELECT p FROM Product p left JOIN FETCH p.category WHERE p.name LIKE :keyword",
                 Product.class)
                 // "%" + keyword + "%" -> 부분 일치 검색 앞뒤 %
                 .setParameter("keyword", "%" + keyword + "%")
@@ -145,7 +145,7 @@ public class ProductRepository {
     public List<Product> findByCategoryId(Long categoryId) {
 
         return entityManager.createQuery(
-                "SELECT p FROM Product p WHERE p.category.id = :cid",
+                "SELECT p FROM Product p LEFT join FETCH p.category WHERE p.category.id = :cid",
                 Product.class)
                 .setParameter("cid", categoryId)
                 .getResultList();

@@ -62,6 +62,7 @@ public class ProductController {
         }else{
             products = productService.getAllProducts();
         }
+        model.addAttribute("products", products);
         // 카테고리 드롭다운 목록 + 현재 검색 조건 유지
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("keyword", keyword);

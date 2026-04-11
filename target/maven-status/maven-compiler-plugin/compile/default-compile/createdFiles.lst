@@ -7,6 +7,7 @@ kr\ac\hansung\cse\repository\ProductRepository.class
 kr\ac\hansung\cse\service\ProductService.class
 kr\ac\hansung\cse\model\Tag.class
 kr\ac\hansung\cse\model\ProductDetail.class
+kr\ac\hansung\cse\exception\DuplicateCategoryException.class
 kr\ac\hansung\cse\model\Product.class
 kr\ac\hansung\cse\model\Category.class
 kr\ac\hansung\cse\config\WebAppInitializer.class

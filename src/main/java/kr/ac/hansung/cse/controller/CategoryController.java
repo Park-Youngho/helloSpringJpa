@@ -65,7 +65,7 @@ public class CategoryController {
     // ─────────────────────────────────────────────────────────────────
     // POST /categories/{id}/delete - 카테고리 삭제 (연결된 상품 있을 경우 예외 처리)
     // ─────────────────────────────────────────────────────────────────
-    @PostMapping
+    @PostMapping("/{id}/delete")
     public String deleteCategory(@PathVariable Long id,
                                  RedirectAttributes redirectAttributes){
         try{

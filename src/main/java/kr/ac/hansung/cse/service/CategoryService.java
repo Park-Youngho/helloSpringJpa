@@ -31,6 +31,7 @@ public class CategoryService {
         return categoryRepository.save(new Category(name));
     }
 
+    @Transactional
     public void deleteCategory(Long id) {
         long count = categoryRepository.countProductsByCategoryById(id);
         if(count>0){
